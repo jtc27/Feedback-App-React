@@ -1,7 +1,11 @@
 import FeedbackItem from "./FeedbackItem" 
 import {motion, AnimatePresence} from 'framer-motion'
 
-function FeedbackList({feedback, handleDelete}) {
+import { useContext } from "react"
+import FeedbackContext from "../context/FeedbackContext"
+
+function FeedbackList({handleDelete}) {
+  const {feedback} = useContext(FeedbackContext)
 
   if (!feedback || feedback.length === 0) {
     return <p>No feedback yet</p>

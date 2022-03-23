@@ -1,3 +1,6 @@
+//Prop drilling was used to go down in levels > App > feedback list > feedback item
+//useContext has eliminated that; it is much easier to maintain global state
+
 import { v4 as uuidv4 } from 'uuid'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
@@ -38,8 +41,8 @@ function App() {
             <Route exact path='/' element={
               <>           
                 <FeedbackForm handleAdd={addFeedback} />
-                <FeedbackStats />
-                <FeedbackList handleDelete={deleteFeedback} />      
+                <FeedbackStats feedback={feedback} />
+                <FeedbackList feedback = {feedback} handleDelete={deleteFeedback} />      
               </>
             }> 
             </Route>
