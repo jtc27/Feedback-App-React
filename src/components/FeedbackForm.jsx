@@ -12,7 +12,7 @@ function FeedbackForm() {
   const [text, setText] = useState('')
   const [rating, setRating] = useState(10)
   const [btnDisabled, setBtnDisabled] = useState(true)
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState()
 
   const {addFeedback} = useContext(FeedbackContext)
   const {feedbackEditState} = useContext(FeedbackContext)
@@ -23,9 +23,14 @@ function FeedbackForm() {
       setBtnDisabled(false)
       setText(feedbackEditState.item.text)
       setRating(feedbackEditState.item.rating)
+      setMessage(
+        `You are currently editing Post ID No. ${feedbackEditState.item.id}. 
+           Please hit Send to submit your review.`
+      )
     }
   }, [feedbackEditState])
 
+ 
   const handleTextChange = (e) => {
     if(text === ''){
       setBtnDisabled(true)
@@ -55,6 +60,7 @@ function FeedbackForm() {
       }
 
       setText('')
+      setMessage(null)
     }
   }
 
