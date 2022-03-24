@@ -1,6 +1,7 @@
+ 
 import {createContext, useState} from 'react'
 import {useEffect} from 'react'
-import { v4 as uuidv4 } from 'uuid'
+//import { v4 as uuidv4 } from 'uuid'
 
 const FeedbackContext = createContext()
 
@@ -30,11 +31,19 @@ export const FeedbackProvider = ({children}) => {
     setIsLoading(false)
   }
 
-  const addFeedback = (newFeedback) => {
-    newFeedback.id = uuidv4()
-    console.log(newFeedback)
+  const addFeedback = async (newFeedback) => {
+    const response = await fetch('/feedback', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newFeedback)
+    })
 
-    setFeedback([newFeedback, ...feedback])
+    const data = await response.json()
+
+    // newFeedback.id = uuidv4()     *Not needed, json-server creates ID automatically
+    setFeedback([data, ...feedback])
   }
 
   const deleteFeedback = (id) => {
